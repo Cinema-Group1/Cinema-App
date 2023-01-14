@@ -1,51 +1,50 @@
 package com.example.qrscanner;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.journeyapps.barcodescanner.ScanContract;
-import com.journeyapps.barcodescanner.ScanOptions;
+import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
-
-    Button button_scan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button_scan = findViewById(R.id.button_scan);
-        button_scan.setOnClickListener(v ->
-        {
-            scanCode();
-        });
-    }
 
-    private void scanCode(){
-        ScanOptions config = new ScanOptions();
-        config.setPrompt("Volume up to flash on");
-        config.setBeepEnabled(true);
-        config.setOrientationLocked(true);
-        config.setCaptureActivity(CaptureAct.class);
-        barLaucher.launch(config);
 
-    }
-    ActivityResultLauncher<ScanOptions> barLaucher = registerForActivityResult(new ScanContract(), result -> {
-        if(result.getContents() != null){
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Result");
-            builder.setMessage(result.getContents());
-            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
+        TextView username =(TextView) findViewById(R.id.username);
+        TextView password =(TextView) findViewById(R.id.password);
+
+        MaterialButton loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
+
+        //admin and admin
+
+        loginbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(username.getText().toString().equals("sebo") && password.getText().toString().equals("snitch")){
+                    //scan
+                    startActivity(new Intent(MainActivity.this, ScanActivity.class));
+                    Toast.makeText(MainActivity.this,"LOGIN SUCCESSFUL",Toast.LENGTH_SHORT).show();
                 }
-            }).show();
-        }
-    });
+                if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
+                    //admin
+                    startActivity(new Intent(MainActivity.this, AdminActivity.class));
+                    Toast.makeText(MainActivity.this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    //incorrect
+                    Toast.makeText(MainActivity.this,"LOGIN FAILED !!!",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
 }
