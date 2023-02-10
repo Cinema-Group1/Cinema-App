@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/button_scan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="140dp"
+        android:layout_height="68dp"
         android:layout_centerInParent="true"
         android:text="Scannen" />
 
@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="17dp"
         android:text="Logout" />
 
 </RelativeLayout>
